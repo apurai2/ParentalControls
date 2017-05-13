@@ -1,8 +1,9 @@
+#written in python 3
 import sys
 import os
 import calendar, datetime
 
-#need to do: sudo chmod +r /var/log/squid/access.log
+#need to do: sudo chmod a+r /var/log/squid/access.log
 log = open("/var/log/squid/access.log","r")
 data = log.readlines()
 log.close()
@@ -15,9 +16,11 @@ for i in range(len(data)):
         websiteList.append(a[2])
         websiteList.append(datetime.datetime.fromtimestamp(int(float(a[0]))))
 
+#####################################################################################
 web = ["www.facebook.com","piazza.com","twitter"]
 ifBan = [".facebook.com",".piazza.com",".twitter.com"] #needs format .website.___
 timeLimits = [2,4,10] #in minutes
+######################################################################################
 
 time = []
 allTimes = []
@@ -49,4 +52,3 @@ for i in range(len(timeLimits)):
         print("time exceeded for: ", web[i])
         bansFD.write(ifBan[i]+'\n')
 bansFD.close()
-
